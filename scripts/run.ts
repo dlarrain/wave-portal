@@ -2,7 +2,7 @@
 import hre from "hardhat";
 
 const main = async () => {
-  const [owner] = await hre.ethers.getSigners();
+  const [owner, randomPerson] = await hre.ethers.getSigners();
   const waveContractFactory = await hre.ethers.getContractFactory("WavePortal");
   const waveContract = await waveContractFactory.deploy();
   await waveContract.deployed();
@@ -10,8 +10,14 @@ const main = async () => {
   console.log("Contract deployed to:", waveContract.address);
   console.log("Contract deployed by:", owner.address);
 
+  // Wave
   await waveContract.getTotalWaves();
-  const waveTxn = await waveContract.wave();
+  let waveTxn = await waveContract.wave();
+  await waveTxn.wait();
+  await waveContract.getTotalWaves();
+
+  // Wave by random person
+  waveTxn = await waveContract.connect(randomPerson).wave();
   await waveTxn.wait();
   await waveContract.getTotalWaves();
 };

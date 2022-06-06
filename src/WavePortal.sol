@@ -13,7 +13,11 @@ contract WavePortal {
 
   function wave() public {
     totalWaves += 1;
-    console.log("%s has waved!", msg.sender);
+    console.log(
+      "A new octopus has waved you at %s. Welcome %s!",
+      block.timestamp,
+      msg.sender
+    );
   }
 
   function getTotalWaves() public view returns (uint256) {
