@@ -2,7 +2,7 @@
 
 pragma solidity ^0.8.9;
 
-import "hardhat/console.sol";
+import "forge-std/console.sol";
 
 contract WavePortal {
   uint256 totalWaves;
